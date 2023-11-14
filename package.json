@@ -1,0 +1,23 @@
+{
+    "name": "hello-world-bot-with-tab",
+    "version": "0.0.1",
+    "author": "Microsoft",
+    "license": "MIT",
+    "engines": {
+        "node": "16 || 18"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "install:bot": "cd bot && dotnet restore",
+        "install:tab": "cd tab && npm install",
+        "install": "concurrently \"npm run install:bot\" \"npm run install:tab\"",
+        "dev:bot": "cd bot && dotnet run",
+        "start:tab": "cd tab && npm run start",
+        "build:tab": "cd tab && npm run build",
+        "build:bot": "cd bot && dotnet build",
+        "build": "concurrently \"npm run build:tab\" \"npm run build:bot\""
+    },
+    "dependencies": {
+        "concurrently": "^7.6.0"
+    }
+}
