@@ -20,6 +20,11 @@ param webAppName string = resourceBaseName
 
 param storageName string = resourceBaseName
 param location string = resourceGroup().location
+param aadAppClientId string
+param aadAppTenantId string
+param aadAppOauthAuthorityHost string
+@secure()
+param aadAppClientSecret string
 
 // Azure Storage that hosts your static web site
 resource storage 'Microsoft.Storage/storageAccounts@2021-06-01' = {
@@ -54,30 +59,23 @@ resource webApp 'Microsoft.Web/sites@2021-02-01' = {
     httpsOnly: true
     siteConfig: {
       alwaysOn: true
-      appSettings: [
-        {
-          name: 'WEBSITE_RUN_FROM_PACKAGE'
-          value: '1' // Run Azure APP Service from a package file
-        }
-        {
-          name: 'WEBSITE_NODE_DEFAULT_VERSION'
-          value: '~18' // Set NodeJS version to 18.x for your site
-        }
-        {
-          name: 'RUNNING_ON_AZURE'
-          value: '1'
-        }
-        {
-          name: 'MicrosoftAppId'
-          value: botAadAppClientId
-        }
-        {
-          name: 'MicrosoftAppPassword'
-          value: botAadAppClientSecret
-        }
-      ]
       ftpsState: 'FtpsOnly'
     }
+  }
+}
+
+resource webAppSettings 'Microsoft.Web/sites/config@2021-02-01' = {
+  name: '${webAppName}/appsettings'
+  properties: {
+    WEBSITE_RUN_FROM_PACKAGE: '1'
+    MicrosoftAppId: botAadAppClientId
+    MicrosoftAppPassword: botAadAppClientSecret
+    BOT_DOMAIN: webApp.properties.defaultHostName
+    AAD_APP_CLIENT_ID: aadAppClientId
+    AAD_APP_CLIENT_SECRET: aadAppClientSecret
+    AAD_APP_TENANT_ID: aadAppTenantId
+    AAD_APP_OAUTH_AUTHORITY_HOST: aadAppOauthAuthorityHost
+    RUNNING_ON_AZURE: '1'
   }
 }
 
