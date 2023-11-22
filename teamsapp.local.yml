@@ -118,10 +118,18 @@ deploy:
     with:
       target: ./bot/appsettings.Development.json
       appsettings:
-        MicrosoftAppId: ${{BOT_ID}}
-        MicrosoftAppPassword: ${{SECRET_BOT_PASSWORD}}
+        BOT_ID: ${{BOT_ID}}
+        BOT_PASSWORD: ${{SECRET_BOT_PASSWORD}}
         BOT_DOMAIN: ${{BOT_DOMAIN}}
         AAD_APP_CLIENT_ID: ${{AAD_APP_CLIENT_ID}}
         AAD_APP_CLIENT_SECRET: ${{SECRET_AAD_APP_CLIENT_SECRET}}
         AAD_APP_TENANT_ID: ${{AAD_APP_TENANT_ID}}
         AAD_APP_OAUTH_AUTHORITY_HOST: ${{AAD_APP_OAUTH_AUTHORITY_HOST}}
+        TeamsFx:
+          Authentication:
+            ClientId: ${{AAD_APP_CLIENT_ID}}
+            ClientSecret: ${{SECRET_AAD_APP_CLIENT_SECRET}}
+            OAuthAuthority: ${{AAD_APP_OAUTH_AUTHORITY}}
+            ApplicationIdUri: api://botid-${{BOT_ID}}
+            Bot:
+              InitiateLoginEndpoint: https://${{BOT_DOMAIN}}/auth-start.html
