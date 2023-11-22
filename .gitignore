@@ -1,16 +1,6 @@
-# TeamsFx files
-env/.env.local
-env/.env.*.user
-env/*
-.DS_Store
-.localConfigs
-build
-appPackage/build
-
 # dependencies
 /node_modules
 /tab/node_modules
-/bot/node_modules
 
 # testing
 /coverage
@@ -374,5 +364,17 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 
-# Secrets are stored in the appSettings.Development.json file
-appSettings.Development.json
+# TeamsFx files
+build
+appPackage/build
+env/.env.*.user
+env/.env.local
+appsettings.Development.json
+.deployment
+.localConfigs
+
+# Notification local store
+.notification.localstore.json
+
+# Mac folder preferences
+.DS_Store

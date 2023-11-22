@@ -10,7 +10,7 @@
             "request": "launch",
             "preLaunchTask": "Build bot", // name of the task in tasks.json
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/bot/bin/Debug/net7.0/bot.dll",
+            "program": "${workspaceFolder}/bot/bin/Debug/net7.0/NotificationBot.dll",
             "args": [],
             "cwd": "${workspaceFolder}/bot",
             "stopAtEntry": false,
@@ -73,28 +73,14 @@
                 "hidden": true
             },
             "internalConsoleOptions": "neverOpen"
-        },
-        {
-            // This can be used if you start the bot/api from a task (terminal)
-            // and then attach to the process that was started from the task
-            "name": "Attach to Bot Service",
-            "type": "coreclr",
-            "request": "attach",
-            "processName": "bot", // this is the name of the process to automatically attach to
-            "presentation": {
-                "group": "all",
-                "hidden": true
-            },
-            "internalConsoleOptions": "neverOpen"
-        }
+        }        
     ],
     "compounds": [
         {
             "name": "Debug (Edge)",
             "configurations": [
                 "Attach to Frontend (Edge)",
-                "Launch Bot and API",
-                //"Attach to Bot Service"
+                "Launch Bot and API"
             ],
             "preLaunchTask": "Start Teams App Locally",
             "presentation": {
@@ -107,8 +93,7 @@
             "name": "Debug (Chrome)",
             "configurations": [
                 "Attach to Frontend (Chrome)",
-                "Launch Bot and API",
-                //"Attach to Bot Service"
+                "Launch Bot and API"
             ],
             "preLaunchTask": "Start Teams App Locally",
             "presentation": {

@@ -23,6 +23,7 @@
         "full": "Full description of hello-world-bot-with-tab"
     },
     "accentColor": "#FFFFFF",
+    "showLoadingIndicator": true,
     "bots": [
         {
             "botId": "${{BOT_ID}}",
@@ -32,26 +33,7 @@
                 "groupchat"
             ],
             "supportsFiles": false,
-            "isNotificationOnly": false,
-            "commandLists": [
-                {
-                    "scopes": [
-                        "personal",
-                        "team",
-                        "groupchat"
-                    ],
-                    "commands": [
-                        {
-                            "title": "welcome",
-                            "description": "Resend welcome card of this Bot"
-                        },
-                        {
-                            "title": "learn",
-                            "description": "Learn about Adaptive Card and Bot Command"
-                        }
-                    ]
-                }
-            ]
+            "isNotificationOnly": false
         }
     ],
     "composeExtensions": [],
@@ -83,6 +65,5 @@
     "validDomains": [
         "${{TAB_DOMAIN}}",
         "${{BOT_DOMAIN}}"
-    ],
-    "showLoadingIndicator": false
+    ]
 }
