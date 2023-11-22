@@ -72,6 +72,4 @@ Please follow this [document](https://aka.ms/teamsfx-add-sso) to add single sign
 We really appreciate your feedback! If you encounter any issue or error, please report issues to us following the [Supporting Guide](https://github.com/OfficeDev/TeamsFx-Samples/blob/dev/SUPPORT.md). Meanwhile you can make [recording](https://aka.ms/teamsfx-record) of your journey with our product, they really make the product better. Thank you!
 
 ## Notes
-There are two different ways that you can integrate the c# bot into the local debug experience.
-- Option 1: Launch the bot and launch the frontend separately.
-- Option 2: Launch the frontend, start the bot in a terminal and then attach the debugger to the bot process.
+https://github.com/MicrosoftDocs/msteams-docs/blob/main/msteams-platform/bots/how-to/conversations/notification-bot-in-teams.md

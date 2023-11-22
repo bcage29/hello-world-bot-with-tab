@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "resourceBaseName": {
-      "value": "helloworld${{RESOURCE_SUFFIX}}"
+      "value": "bot${{RESOURCE_SUFFIX}}"
     },
     "storageSku": {
       "value": "Standard_LRS"
@@ -19,6 +19,18 @@
     },
     "botDisplayName": {
       "value": "hello-world-bot-with-tab"
+    },
+    "aadAppClientId": {
+      "value": "${{AAD_APP_CLIENT_ID}}"
+    },
+    "aadAppClientSecret": {
+      "value": "${{SECRET_AAD_APP_CLIENT_SECRET}}"
+    },
+    "aadAppTenantId": {
+      "value": "${{AAD_APP_TENANT_ID}}"
+    },
+    "aadAppOauthAuthorityHost": {
+      "value": "${{AAD_APP_OAUTH_AUTHORITY_HOST}}"
     }
   }
 }

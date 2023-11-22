@@ -2,16 +2,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            // Use IntelliSense to find out which attributes exist for C# debugging
-            // Use hover for the description of the existing attributes
-            // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
             "name": "Launch Bot and API",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "Build bot", // name of the task in tasks.json
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/bot/bin/Debug/net7.0/NotificationBot.dll",
-            "args": [],
+            "program": "dotnet",
+            "args": [
+                "watch",
+                "--project",
+                ".",
+                "--verbose"
+            ],
             "cwd": "${workspaceFolder}/bot",
             "stopAtEntry": false,
             // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
@@ -21,8 +23,11 @@
                 "uriFormat": "http://localhost:%s/swagger/index.html"
             },
             "env": {
-                "ASPNETCORE_ENVIRONMENT": "Development"
-            }
+                "ASPNETCORE_ENVIRONMENT": "Development",
+            },
+            // "sourceFileMap": {
+            //     "/Views": "${workspaceFolder}/Views"
+            // }
         },
         {
             "name": "Launch Remote (Edge)",
