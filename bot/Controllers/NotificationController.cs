@@ -19,7 +19,8 @@ namespace NotificationBot.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> PostAsync(CancellationToken cancellationToken = default)
+        [Route("conversation")]
+        public async Task<ActionResult> PostConversationAsync(CancellationToken cancellationToken = default)
         {
             // Read adaptive card template
             var cardTemplate = await System.IO.File.ReadAllTextAsync(_adaptiveCardFilePath, cancellationToken);
@@ -49,6 +50,15 @@ namespace NotificationBot.Controllers
 
             } while (!string.IsNullOrEmpty(continuationToken));
 
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("activity")]
+        public async Task<ActionResult> PostActivityAsync(CancellationToken cancellationToken = default)
+        {
+
+            await Task.FromResult(0);
             return Ok();
         }
     }

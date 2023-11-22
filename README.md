@@ -72,4 +72,5 @@ Please follow this [document](https://aka.ms/teamsfx-add-sso) to add single sign
 We really appreciate your feedback! If you encounter any issue or error, please report issues to us following the [Supporting Guide](https://github.com/OfficeDev/TeamsFx-Samples/blob/dev/SUPPORT.md). Meanwhile you can make [recording](https://aka.ms/teamsfx-record) of your journey with our product, they really make the product better. Thank you!
 
 ## Notes
-https://github.com/MicrosoftDocs/msteams-docs/blob/main/msteams-platform/bots/how-to/conversations/notification-bot-in-teams.md
+- https://github.com/MicrosoftDocs/msteams-docs/blob/main/msteams-platform/bots/how-to/conversations/notification-bot-in-teams.md
+- https://github.com/OfficeDev/TeamsFx/wiki/How-to-enable-Single-Sign-on-in-Teams-Toolkit-for-Visual-Studio#for-teams-bot-applications
