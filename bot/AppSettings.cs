@@ -7,10 +7,12 @@ namespace NotificationBot
         public AuthenticationOptions Authentication { get; set; }
     }
 
-    public class ConfigOptions
+    public class AppSettings
     {
         public string BOT_ID { get; set; }
         public string BOT_PASSWORD { get; set; }
+        public string TENANT_ID { get; set; }
+        public string TEAMS_APP_ID { get; set; }
         public TeamsFxOptions TeamsFx { get; set; }
     }
 }

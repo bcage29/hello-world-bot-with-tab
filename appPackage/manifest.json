@@ -66,8 +66,36 @@
         "${{TAB_DOMAIN}}",
         "${{BOT_DOMAIN}}"
     ],
+    "activities": {
+        "activityTypes": [
+            {
+                "type": "taskCreated",
+                "description": "Task created activity",
+                "templateText": "New created task {taskName} for you"
+            }
+        ]
+    },
     "webApplicationInfo": {
         "id": "${{AAD_APP_CLIENT_ID}}",
         "resource": "api://botid-${{BOT_ID}}"
+    },
+    "authorization":
+    {
+        "permissions": {
+            "resourceSpecific": [
+                {
+                    "type": "Application",
+                    "name": "TeamsActivity.Send.User"
+                },
+                {
+                    "type": "Application",
+                    "name": "TeamsActivity.Send.Group"
+                },
+                {
+                    "type": "Application",
+                    "name": "TeamsActivity.Send.Chat"
+                }
+            ]
+        }
     }
 }

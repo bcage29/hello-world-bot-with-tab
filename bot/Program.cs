@@ -16,8 +16,18 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Configuration
+    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", true, true);
+
+//builder.Services.AddOptions<AppSettings>();
+builder.Services
+    .AddOptions<AppSettings>()
+    .BindConfiguration(nameof(AppSettings))
+    .ValidateDataAnnotations();
+
 // Prepare Configuration for ConfigurationBotFrameworkAuthentication
-var config = builder.Configuration.Get<ConfigOptions>();
+var config = builder.Configuration.GetSection(nameof(AppSettings)).Get<AppSettings>();
 builder.Configuration["MicrosoftAppType"] = "MultiTenant";
 builder.Configuration["MicrosoftAppId"] = config.BOT_ID;
 builder.Configuration["MicrosoftAppPassword"] = config.BOT_PASSWORD;
