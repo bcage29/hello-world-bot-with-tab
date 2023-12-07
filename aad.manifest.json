@@ -23,10 +23,6 @@
                 {
                     "id": "User.Read",
                     "type": "Scope"
-                },
-                {
-                    "id": "TeamsActivity.Send",
-                    "type": "Scope"
                 }
             ]
         }
