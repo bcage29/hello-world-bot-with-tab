@@ -65,8 +65,8 @@ namespace NotificationBot.Controllers
         public async Task<ActionResult> PostActivityAsync(CancellationToken cancellationToken = default)
         {
             appId = string.Empty;
-            await GetInstalledAppList("82e79299-b14a-41b3-a23b-dec45825d069");
-            await Task.FromResult(0);
+            //await GetInstalledAppList("82e79299-b14a-41b3-a23b-dec45825d069");
+            await SendNotification("82e79299-b14a-41b3-a23b-dec45825d069", "ODJlNzkyOTktYjE0YS00MWIzLWEyM2ItZGVjNDU4MjVkMDY5IyMzNzdhYjY1Mi1lNWQxLTRjNDMtYTE3NS1hMzYyYjY0OWZlZTI=");            
             return Ok();
         }
 
@@ -75,7 +75,7 @@ namespace NotificationBot.Controllers
         private async Task GetInstalledAppList(string reciepientUserId)
         {
             // Replace with your Graph API endpoint and access token
-            string graphApiEndpoint = $"https://graph.microsoft.com/v1.0/users/{reciepientUserId}/teamwork/installedApps/?$expand=teamsAppDefinition";
+            string graphApiEndpoint = $"https://graph.microsoft.com/v1.0/users/{reciepientUserId}/teamwork/installedApps/?$expand=teamsApp&$filter=teamsApp/externalId eq '{_settings.TEAMS_APP_ID}'";
 
             var accessToken = await GetToken();
 
@@ -102,14 +102,19 @@ namespace NotificationBot.Controllers
                         var responseData = JsonConvert.DeserializeObject<ResponseData>(responseBody);
                         var installedAppList = responseData.Value;
 
-                        foreach(var element in installedAppList)
+                        if (installedAppList.Count == 1)
                         {
-                            if (element.TeamsAppDefinition.DisplayName == "hello-world-bot-with-tablocal")
-                            {
-                                appId = element.Id;
-                            }
-                        };
+                            appId = installedAppList[0].Id;
+                        }
 
+                        // foreach(var element in installedAppList)
+                        // {
+                        //     if (element.TeamsAppDefinition.DisplayName == "hello-world-bot-with-tablocal")
+                        //     {
+                        //         appId = element.Id;
+                        //     }
+                        // };
+                    
                         if(appId != null)
                         {
                             await SendNotification(reciepientUserId, appId);
@@ -148,10 +153,11 @@ namespace NotificationBot.Controllers
             var accessToken = await GetToken();
 
             // Create a JSON payload for the activity feed notification
+            // json payload to use with template defined in manifest
             string jsonPayload = @"{
             ""topic"": {
                 ""source"": ""entityUrl"",
-                ""value"": ""https://graph.microsoft.com/beta/users/" + reciepientUserId + "/teamwork/installedApps/" + appId + @"""
+                ""value"": ""https://teams.microsoft.com/l/entity/" + _settings.TEAMS_APP_ID + "/index0?webUrl=https://localhost:53000" + @"""
             },
             ""activityType"": ""taskCreated"",
             ""previewText"": {
@@ -163,6 +169,27 @@ namespace NotificationBot.Controllers
                 }]
             }";
 
+            // json payload to use with system default template
+            string jsonPayloadSystemDefault = @"{
+            ""topic"": {
+                ""source"": ""text"",
+                ""value"": ""test"",
+                ""webUrl"": ""https://teams.microsoft.com/l/entity/" + _settings.TEAMS_APP_ID + "/index0?tenantId=" + _settings.TENANT_ID + "&webUrl=https://localhost:53000&label=hello" + @"""
+            },
+            ""activityType"": ""systemDefault"",
+            ""previewText"": {
+                ""content"": ""Take a break""
+            },
+            ""recipient"": {
+                ""@odata.type"": ""microsoft.graph.aadUserNotificationRecipient"",
+                ""userId"": ""82e79299-b14a-41b3-a23b-dec45825d069""
+            },
+            ""templateParameters"": [{
+                ""name"": ""systemDefaultText"",
+                ""value"": ""You need to take a short break""
+                }]
+            }";
+            
             using (HttpClient httpClient = new HttpClient())
             {
                 // Set the base URL for the Graph API
@@ -186,6 +213,7 @@ namespace NotificationBot.Controllers
                     else
                     {
                         var c = response.Content.ReadAsStringAsync();
+                        Console.WriteLine(c?.Result);
                         Console.WriteLine($"Error: {response.StatusCode}");
                         return "Notification sent";
                     }
