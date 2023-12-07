@@ -52,13 +52,14 @@
             "request": "launch",
             "url": "https://teams.microsoft.com/l/app/${{local:TEAMS_APP_ID}}?installAppPackage=true&webjoin=true&${account-hint}",
             "cascadeTerminateToConfigurations": [
-                "Attach to Local Service"
+                "Launch Bot and API"
             ],
             "presentation": {
                 "group": "all",
                 "hidden": true
             },
-            "internalConsoleOptions": "neverOpen"
+            "internalConsoleOptions": "neverOpen",
+            "postDebugTask": "Terminate frontend"
         },
         {
             "name": "Attach to Frontend (Chrome)",
@@ -66,13 +67,14 @@
             "request": "launch",
             "url": "https://teams.microsoft.com/l/app/${{local:TEAMS_APP_ID}}?installAppPackage=true&webjoin=true&${account-hint}",
             "cascadeTerminateToConfigurations": [
-                "Attach to Local Service"
+                "Launch Bot and API"
             ],
             "presentation": {
                 "group": "all",
                 "hidden": true
             },
-            "internalConsoleOptions": "neverOpen"
+            "internalConsoleOptions": "neverOpen",
+            "postDebugTask": "Terminate frontend"
         }        
     ],
     "compounds": [
