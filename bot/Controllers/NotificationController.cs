@@ -66,7 +66,7 @@ namespace NotificationBot.Controllers
         {
             appId = string.Empty;
             //await GetInstalledAppList("82e79299-b14a-41b3-a23b-dec45825d069");
-            await SendNotification("82e79299-b14a-41b3-a23b-dec45825d069", "ODJlNzkyOTktYjE0YS00MWIzLWEyM2ItZGVjNDU4MjVkMDY5IyMzNzdhYjY1Mi1lNWQxLTRjNDMtYTE3NS1hMzYyYjY0OWZlZTI=");            
+            await SendNotification("82e79299-b14a-41b3-a23b-dec45825d069", "ODJlNzkyOTktYjE0YS00MWIzLWEyM2ItZGVjNDU4MjVkMDY5IyMzNzdhYjY1Mi1lNWQxLTRjNDMtYTE3NS1hMzYyYjY0OWZlZTI=");
             return Ok();
         }
 
@@ -155,9 +155,25 @@ namespace NotificationBot.Controllers
             // Create a JSON payload for the activity feed notification
             // json payload to use with template defined in manifest
             string jsonPayload = @"{
-            ""topic"": {
+             ""topic"": {
                 ""source"": ""entityUrl"",
-                ""value"": ""https://teams.microsoft.com/l/entity/" + _settings.TEAMS_APP_ID + "/index0?webUrl=https://localhost:53000" + @"""
+                ""value"": ""https://graph.microsoft.com/beta/users/" + reciepientUserId + "/teamwork/installedApps/" + appId + "/index0" + @"""
+            },
+            ""activityType"": ""taskCreated"",
+            ""previewText"": {
+                ""content"": ""New Task Created""
+            },
+            ""templateParameters"": [{
+                ""name"": ""taskName"",
+                ""value"": ""test""
+                }]
+            }";
+
+            string jsonPayloadCustomTopic = @"{
+             ""topic"": {
+                ""source"": ""text"",
+                ""value"": ""test"",
+                ""webUrl"": ""https://teams.microsoft.com/l/entity/" + _settings.TEAMS_APP_ID + "/index0?tenantId=" + _settings.TENANT_ID + "&webUrl=https://localhost:53000" + @"""
             },
             ""activityType"": ""taskCreated"",
             ""previewText"": {
@@ -200,7 +216,7 @@ namespace NotificationBot.Controllers
                 try
                 {
                     // Create a POST request with the JSON payload
-                    HttpResponseMessage response = await httpClient.PostAsync(graphApiEndpoint, new StringContent(jsonPayload, Encoding.UTF8, "application/json"));
+                    HttpResponseMessage response = await httpClient.PostAsync(graphApiEndpoint, new StringContent(jsonPayloadCustomTopic, Encoding.UTF8, "application/json"));
 
                     // Check if the request was successful
                     if (response.IsSuccessStatusCode)
